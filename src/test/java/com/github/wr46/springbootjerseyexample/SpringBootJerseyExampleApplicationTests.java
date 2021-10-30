@@ -1,6 +1,6 @@
 package com.github.wr46.springbootjerseyexample;
 
-import com.github.wr46.springbootjerseyexample.entities.Task;
+import com.github.wr46.springbootjerseyexample.dtos.TaskDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,15 +20,15 @@ class SpringBootJerseyExampleApplicationTests {
 
 	@Test
 	void whenGetAllTaskThenReturnSuccess() {
-		ResponseEntity<Task[]> entity = this.restTemplate.getForEntity(BASE_API_URL, Task[].class);
+		ResponseEntity<TaskDTO[]> entity = this.restTemplate.getForEntity(BASE_API_URL, TaskDTO[].class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
 
 	@Test
 	void whenPostTaskThenReturnSuccess() {
-		Task task = new Task();
-		task.setName("Test");
-		ResponseEntity<Task> entity = this.restTemplate.postForEntity(BASE_API_URL, task, Task.class);
+		TaskDTO dto = new TaskDTO();
+		dto.setName("Test");
+		ResponseEntity<TaskDTO> entity = this.restTemplate.postForEntity(BASE_API_URL, dto, TaskDTO.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
 
