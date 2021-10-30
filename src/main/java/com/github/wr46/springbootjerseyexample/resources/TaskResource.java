@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.github.wr46.springbootjerseyexample.dtos.TaskDTO;
 import com.github.wr46.springbootjerseyexample.entities.Task;
 import com.github.wr46.springbootjerseyexample.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class TaskResource {
         if (id == null) {
             return Response.ok(taskService.getTasks()).build();
         }
-        final Optional<Task> task = taskService.getTask(id);
+        final Optional<TaskDTO> task = taskService.getTask(id);
         if (task.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -47,7 +48,7 @@ public class TaskResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createTask(@Valid Task task) {
+    public Response createTask(@Valid TaskDTO task) {
         return Response.ok(taskService.createTask(task)).build();
     }
 }
