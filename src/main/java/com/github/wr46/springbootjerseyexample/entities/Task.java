@@ -18,6 +18,4 @@ public class Task implements Serializable {
 
     @Column(nullable = false)
     private String name;
-
-    protected Task() {}
 }

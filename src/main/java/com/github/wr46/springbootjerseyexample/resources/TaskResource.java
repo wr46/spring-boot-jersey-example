@@ -26,18 +26,22 @@ public class TaskResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    public Response getTasks() {
+        return Response.ok(taskService.getTasks()).build();
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getTask(@PathParam("id") Long id) {
+        if (id == null) {
+            return Response.ok(taskService.getTasks()).build();
+        }
         final Optional<Task> task = taskService.getTask(id);
         if (task.isEmpty()) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         return Response.ok(task).build();
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getTasks() {
-        return Response.ok(taskService.getTasks()).build();
     }
 
     @POST
